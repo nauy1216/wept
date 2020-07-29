@@ -6,6 +6,10 @@ var config = require('./webpack.config')
 var prodConfig = require('./webpack.prod')
 var gutil = require('gulp-util')
 
+
+/**
+ *  将gulp升级为4.0，否则在node12下会报错
+ */
 // build server javascript
 gulp.task('babel', function () {
   return gulp.src('lib/*.js')
@@ -57,8 +61,9 @@ gulp.task('watch', function () {
     .pipe(gulp.dest('public/script'))
 })
 
-gulp.task('prepublish', ['babel', 'webpack:prod'])
+// gulp.task('prepublish', ['babel', 'webpack:prod'])
 
-gulp.task('build', ['babel', 'webpack'])
+// gulp.task('build', ['babel', 'webpack'])
+gulp.task('build', gulp.series('babel', 'webpack'))
 
-gulp.task('default', ['babel', 'watch'])
+// gulp.task('default', ['babel', 'watch'])
